@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if ! type "ansible-playbook" > /dev/null; then
+  echo "Ansible not found. Please install Ansible."
+  exit 1
+fi
+
+echo "Locating Rpi in your network"
+python ../bin/rpifind
+
+echo "Installing provisioning SSH keys in Rpi host"
+ansible-playbook -c paramiko -i ansible/hosts ansible/keys.yml --ask-pass --sudo

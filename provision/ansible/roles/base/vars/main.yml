@@ -1,0 +1,25 @@
+---
+user: pi
+hostname: fuzzer
+
+default_packages:
+  - unattended-upgrades
+  - curl
+  - htop
+  - nmap
+  - tmux
+  - zsh
+  - nmon
+  - rpi-update
+  - haveged
+  - avahi-daemon
+  - rng-tools
+  - vim
+  - sqlite3
+  - git
+  - mc
+  - build-essential
+  - python-dev
+  - python-pip
+  - python-smbus
+  - tcpdump

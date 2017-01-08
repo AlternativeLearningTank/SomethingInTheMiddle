@@ -1,0 +1,5 @@
+---
+- name: Installing python dependencies.
+  pip: "name={{ item }}"
+  sudo: yes
+  with_items: python_packages

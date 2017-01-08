@@ -1,0 +1,9 @@
+---
+- hosts: all
+  remote_user: pi
+  become_user: root
+  gather_facts: yes
+
+  roles:
+    - base
+    - probe

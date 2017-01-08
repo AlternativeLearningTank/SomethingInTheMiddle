@@ -1,0 +1,21 @@
+---
+# ansible-playbook -c paramiko -i hosts keys.yml --ask-pass --sudo
+- hosts: all
+  sudo: yes
+  user: pi
+
+  vars:
+    - user: pi
+
+  tasks:
+
+  - name: Creates destination directory on the Pi for our key.
+    file: state=directory dest=/home/{{user}}/.ssh/
+
+  - name: Fix access rights to .ssh dir.
+    file: state=directory mode=700 dest=/home/{{user}}/.ssh/
+
+  - name: pushes your RSA key to the Raspberry Pi. (Don't worry if this fails)
+    copy: src=~/.ssh/id_rpi_default.pub dest=/home/{{user}}/.ssh/authorized_keys owner={{user}}
+    register: rsa
+    ignore_errors: yes
