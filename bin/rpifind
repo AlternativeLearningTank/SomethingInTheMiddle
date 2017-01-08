@@ -3,20 +3,40 @@ import subprocess
 import os, sys
 import platform
 import re
+import socket
+import fcntl
+import struct
+
+
+RPI_MAC_ADDRESS_ID = 'b8:27:eb'
 
 HOST_VARS = {}
 ANSIBLE_INV = {}
 rpi_ip_list = []
 rpi_name_list = []
 
+def get_ip_address(ifname):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,  # SIOCGIFADDR
+        struct.pack('256s', ifname[:15])
+    )[20:24])
+
 def nmap():
-	t = subprocess.Popen("nmap -sP 10.0.0.0/24",shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	# get base IP for network segment
+	thisip = get_ip_address('eth0')
+	quad = re.split(r'(\.|/)', ip)
+	quad[6] = '0'
+	base = "".join(quad) + "/24" # scan all addresses in this segment
+	# execute nmap to scan network
+	t = subprocess.Popen("nmap -sP {0}".format(base),shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	t.wait()
 
 def pi_search():
 	p = subprocess.Popen("arp -a | cut -f 2,4 -d ' ' ", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	for line in p.stdout.readlines():
-		if 'b8:27:eb' in line:
+		if RPI_MAC_ADDRESS_ID in line:
 			ip_is = str(re.findall( r'[0-9]+(?:\.[0-9]+){3}',line))[2:-2]
 			rpi_ip_list.append(ip_is)
 			print ("This is RPi IP: " + ip_is)
