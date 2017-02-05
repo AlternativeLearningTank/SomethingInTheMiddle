@@ -1,0 +1,5 @@
+---
+service_name: pi
+daemon: fuzzer
+daemon_opts: "--verbose"
+pidfile: sitmd.pid

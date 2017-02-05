@@ -1,5 +1,5 @@
 ---
 - name: Installing python dependencies.
   pip: "name={{ item }}"
-  sudo: yes
+  become: root
   with_items: python_packages
