@@ -35,4 +35,8 @@ username and password but I like to install an SSH key as well. Follows these st
 
  1. You can use the `provision/keygen` script to generate an SSH key, this will generate two file in your computer in the `~/.ssh` directory.
 
- 2. Once that key is generated we need to install it in our Rpi, so that it can recognize us when we try to log in.
+ 2. Once that key is generated we need to install it in our Rpi, so that it can recognize us when we try to log in. You can execute the `provision/keyinstall` script for that.
+
+ 3. Try to SSH into your Rpi by typing `ssh -i id_rpi_default pi@<the_ip_address_of_your_rpi>` and you should be able to log into your Rpi without having to enter a password.
+
+If you do not know how to get the IP address of your Rpi, you can use [Adafruit's Pi Finder](https://github.com/adafruit/Adafruit-Pi-Finder/releases).
