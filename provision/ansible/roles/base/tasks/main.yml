@@ -1,35 +1,28 @@
 ---
-- name: Update apt cache.
-  apt: update_cache=yes
-  become: root
-
-#- name: Upgrade Raspbian.
-#  apt: upgrade=yes
-#  sudo: yes
-
 - name: Setting our new hostname.
   hostname: name={{ hostname }}
-  become: root
+  become: yes
 
 - name: Generate locales to prevent annoying SSH messages.
   locale_gen: name=en_US.UTF-8 state=present
-  become: root
+  become: yes
 
 - name: Ensure base packages are installed.
   apt: "name={{ item }} state=installed"
-  become: root
-  with_items: default_packages
+  become: yes
+  update_cache: yes
+  with_items: "{{ default_packages }}"
 
 - name: Uninstall wolfram-alpha engine, we don't need it
   apt: pkg={{ item }} state=absent
-  become: root
+  become: yes
   with_items:
     - wolfram-engine
 
 - name: Autoremove any unused packages.
   shell: "apt-get autoremove --assume-yes --purge"
-  become: root
+  become: yes
 
 - name: Let's Autoclean the system.
   shell: "apt-get autoclean --assume-yes"
-  become: root
+  become: yes

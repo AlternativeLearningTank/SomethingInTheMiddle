@@ -8,7 +8,7 @@ SiTM is designed with two audiences in mind: as a classroom tool so that student
 
 You will need a Raspberry Pi for this and a WiFi dongle capable of access point (AP) mode.
 
-#### Provisioning
+### Provisioning
 
 Provisioning means installing all the necessary software in your Rpi and leaving it ready to work with the SiTM tools.
 
@@ -28,7 +28,6 @@ brew install ansible
 apt-get install ansible
 ```
 
-
 #### Setting up authentication
 First we need to make sure we have access to our Rpi, we can use the default
 username and password but I like to install an SSH key as well. Follows these steps to get your Rpi to authenticate via SSH.
@@ -40,3 +39,11 @@ username and password but I like to install an SSH key as well. Follows these st
  3. Try to SSH into your Rpi by typing `ssh -i id_rpi_default pi@<the_ip_address_of_your_rpi>` and you should be able to log into your Rpi without having to enter a password.
 
 If you do not know how to get the IP address of your Rpi, you can use [Adafruit's Pi Finder](https://github.com/adafruit/Adafruit-Pi-Finder/releases).
+
+#### Installing everything you'll need
+
+To install everything you will need you can use the Ansible script we provide you with, like this:
+
+```
+ansible-playbook -c paramiko -i ansible/hosts ansible/main.yml --sudo
+```
