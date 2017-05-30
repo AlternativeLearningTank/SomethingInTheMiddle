@@ -40,6 +40,11 @@ username and password but I like to install an SSH key as well. Follows these st
 
 If you do not know how to get the IP address of your Rpi, you can use [Adafruit's Pi Finder](https://github.com/adafruit/Adafruit-Pi-Finder/releases).
 
+#### Installing SITM
+
+You can use the provided script `./sitm-install` to execute the Ansible script that
+will install SomethingInTheMiddle and all its associated dependencies.
+
 #### Installing everything you'll need
 
 To install everything you will need you can use the Ansible script we provide you with, like this:

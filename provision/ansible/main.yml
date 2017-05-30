@@ -6,5 +6,6 @@
 
   roles:
     - base
+    - access-point
     - probe
     - sitm

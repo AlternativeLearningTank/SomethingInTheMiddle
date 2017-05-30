@@ -1,0 +1,13 @@
+---
+ssid: sitmd-node
+password: sitmsitm
+device_driver: rtl871xdrv
+interface: wlan0
+
+hostapd_url: http://adafruit-download.s3.amazonaws.com/adafruit_hostapd_14128.zip
+
+
+packages:
+  - hostapd
+  - dnsmasq
+  - mosquitto

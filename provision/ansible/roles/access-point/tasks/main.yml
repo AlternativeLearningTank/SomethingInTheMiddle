@@ -1,0 +1,44 @@
+---
+- name: Creates download directory
+  file: path=/home/pi/hostapd_adafruit state=directory
+
+- name: "download Adafruit hostapd patch for Realtek"
+  unarchive:
+    src: "{{ hostapd_url }}"
+    dest: "/home/pi/hostapd_adafruit"
+    remote_src: True
+
+- name: "Ensure access-point packages are installed"
+  apt: name={{item}} state=latest update_cache=yes
+  with_items: "{{ packages }}"
+
+- name: Stat hostapd downloaded
+  stat: path=/home/pi/hostapd_adafruit/hostapd
+  register: adafruit_hostapd_stat
+
+- name: Stat hostapd
+  stat: path=/usr/sbin/hostapd
+  register: hostapd_stat
+
+- name: "Put original hostapd away"
+  command: cp /usr/sbin/hostapd /usr/sbin/hostapd.original
+  when: hostapd_stat.stat.exists == True
+
+- name: "Put Adafruit's copy of hostapd instead"
+  command: mv /home/pi/hostapd_adafruit/hostapd /usr/sbin/hostapd
+  when: adafruit_hostapd_stat.stat.exists == True
+
+- name: "Make sure hostapd's is executable"
+  file:
+    path: /usr/sbin/hostapd
+    owner: root
+    group: root
+    mode: 0755
+
+# Set ip forwarding on in /proc and in the sysctl file and reload if necessary
+- sysctl:
+    name: net.ipv4.ip_forward
+    value: 1
+    sysctl_set: yes
+    state: present
+    reload: yes

@@ -1,6 +1,6 @@
 ---
 user: pi
-hostname: fuzzer
+hostname: sitmd
 
 default_packages:
   - unattended-upgrades

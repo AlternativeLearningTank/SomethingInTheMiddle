@@ -7,10 +7,17 @@
   locale_gen: name=en_US.UTF-8 state=present
   become: yes
 
+- name: Clearing apt repositories.
+  shell: "apt-get clean"
+  become: yes
+
+- name: Update apt repositories.
+  shell: "apt-get update"
+  become: yes
+
 - name: Ensure base packages are installed.
   apt: "name={{ item }} state=installed"
   become: yes
-  update_cache: yes
   with_items: "{{ default_packages }}"
 
 - name: Uninstall wolfram-alpha engine, we don't need it

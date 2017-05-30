@@ -1,6 +1,8 @@
 ---
 - name: copy init.d script
   template: src=sitmd dest=/etc/init.d/sitmd mode=755
+  become: yes
 
 - name: ensure {{ daemon }} daemon is started
   action: service name={{ daemon }} state=started
+  become: yes
