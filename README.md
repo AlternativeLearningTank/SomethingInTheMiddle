@@ -16,9 +16,9 @@ You will need a Raspberry Pi for this and a WiFi dongle capable of access point 
 
 ### Provisioning
 
-Provisioning means installing all the necessary software in your Rpi and leaving it ready to work with the //sitm// tools.
+Provisioning means installing all the necessary software in your Rpi and leaving it ready to work with the *sitm* tools.
 
-To make //sitm// easy, we decided to use an automated provisioning tool, instead of giving you step by step instructions as it simply would be too long and intimidating a process.
+To make *sitm* easy, we decided to use an automated provisioning tool, instead of giving you step by step instructions as it simply would be too long and intimidating a process.
 
 You will need to have the provisioning tool installed in your computer before you can start. It is called [*Ansible*](https://www.ansible.com/) and you install it like this:
 
