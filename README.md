@@ -2,7 +2,7 @@
 
 *sitm* is a tool that gives artists, designers and educators an easy to use custom WiFi router to work with networks and explore the aspects of our daily communications that are exposed when we use WiFi. Our goal is to encourage open discussions about how we use our devices online.
 
-*sitm* emerges from our collective practice as the Alternative Learning Tank and is heavily inspired by projects such as Dowse, alt.exit and the NetAidKit.
+*sitm* emerges from our collective practice as the Alternative Learning Tank and is heavily inspired by projects such as [Dowse](http://dowse.equipment/), [alt.exit](http://alternativelearningtank.net/) and the [NetAidKit](https://netaidkit.net/).
 
 ## How does it work?
 
