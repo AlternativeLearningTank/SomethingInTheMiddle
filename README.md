@@ -1,14 +1,14 @@
 ## Something In The Middle
 
-*sitm* is a tool that gives artists, designers and educators an easy to use custom WiFi router to work with networks and explore the aspects of our daily communications that are exposed when we use WiFi. Our goal is to encourage open discussions about how we use our devices online.
+*Sitm* is a tool that gives artists, designers and educators an easy to use custom WiFi router to work with networks and explore the aspects of our daily communications that are exposed when we use WiFi. Our goal is to encourage open discussions about how we use our devices online.
 
-*sitm* emerges from our collective practice as the Alternative Learning Tank and is heavily inspired by projects such as Dowse, alt.exit and the NetAidKit.
+*Sitm* emerges from our collective practice as the Alternative Learning Tank and is heavily inspired by projects such as Dowse, alt.exit and the NetAidKit.
 
 ## How does it work?
 
-*sitm* is a specially configured WiFi router that allows you to intercept all the communications going through it. With SiTM you can look into the sites that people are visiting, the headers of what they are reading, the images they are looking at, etc.
+*Sitm* is a specially configured WiFi router that allows you to intercept all the communications going through it. With SiTM you can look into the sites that people are visiting, the headers of what they are reading, the images they are looking at, etc.
 
-*sitm* is designed with two audiences in mind: as a classroom tool so that students can better understand how their network access works. And as a design kit to enable artists and designers that want to work with networks to get started.
+*Sitm* is designed with two audiences in mind: as a classroom tool so that students can better understand how their network access works. And as a design kit to enable artists and designers that want to work with networks to get started.
 
 ### Setting up your RPi for the first time
 
