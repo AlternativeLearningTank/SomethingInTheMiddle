@@ -1,0 +1,102 @@
+------------------Installation.
+Burn Raspbian to a MicroSD card
+
+Execute:
+
+$ sudo raspi-config
+##Enable a root password, enable SSH, change your hostname.
+
+$ sudo apt-get update && sudo apt-get upgrade
+##Update the system
+
+
+------------------Configuring Relay
+
+$ sudo apt-get install tor
+##Install Tor
+
+$ sudo cp /etc/tor/torrc /etc/tor/torrc.backup
+##Backup the original config file.
+
+$ adduser tor-raspi  
+$ passwd tor-raspi
+##Create user tor-raspi and give it a password
+
+
+$ sudo nano /etc/torrc
+##Open Nano editor.
+
+SocksPort 0 
+##To not use Tor for local connections, this could be reversed depending on use
+
+Log notice file /var/log/tor/notices.log
+##Increase the level of logs in order to penetrate further in sensitive data
+
+RunAsDaemon 1
+##To run the process in the background
+
+ORPort 9001
+##Advertise port for incoming Tor connections
+
+DirPort 9030
+##Advertise port for Directory connections
+
+ExitPolicy reject *:*
+##No Exit Relay, this can be changed and filtered to a larger extend, for instance allowing just particular connections that we want to put the spotlight on. Interesting filter.
+
+Nickname ALTinTheMiddle(or in the exit :) )
+##Name of the relay (otherwise will be referrences with its key)
+
+ContactInfo Alternative Learning Tank <info AT alternativelearningtank dot net>
+##Contact info in case something goes wrong or has questions.
+
+DirPortFrontPage /etc/tor/tor-exit-notice.html
+##Setup html notice webpage on the relay
+
+RelayBandwidthRate 100 KB
+##Average bandwith given to the relay
+RelayBandwidthBurst 200 KB 
+##Maximum burts dandwith (temporary, peaks)
+
+ControlPort 9051
+##Define port that we will use to access and control data from the relay, with applications like arm, but also other tailor made for the device.
+
+HashedControlPassword passwordsareworsethanpassphrases
+##Establish a password or cookie to authorize access to the control port
+
+------------------Starting Relay
+$ sudo /etc/init.d/tor restart
+##Restart Relay with new configuration
+
+$ cat /var/log/tor/log 
+##Check the relay is running by looking for  "[notice] Tor has successfully opened a circuit. Looks like client functionality is working." . 
+
+##Check online in https://torstatus.blutmagie.de/ if your Tor Relay is functioning for the public.
+
+At this point we have the basic Middle Relay running, it will change through different status and gain more flags after days of service.
+
+
+------------------Installating and using arm for monitoring
+$ sudo apt-get install tor-arm
+
+$ sudo -u tor-raspi arm
+##Run with previously created raspi-tor user
+
+Arm can monitor:
+-tor-version
+-tor-flags
+-used ports
+-nickname
+-fingerprint of your node
+-uptime of your server
+-process id of tor
+-CPU usage of TOR and ARM process
+-memory usage of TOR process
+-bandwith and limits
+-in and outgoing bandwith monitor
+-events in logfiles
+-editing configuration
+-more...
+
+
+
