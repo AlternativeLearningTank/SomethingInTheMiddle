@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+rpi-find() {
+  echo "Locating Rpi in your network"
+  arp -na | grep -i b8:27:eb
+}

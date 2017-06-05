@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-echo "We are going to generate an SSH key for our RPi"
-ssh-keygen -f ~/.ssh/id_rpi_default -t rsa -C "sitm@alternativelearningtank.net" -b 4096
+source $VROOT_PREFIX/hosts
+source $VROOT_PREFIX/sitm
+
+ssh_key_generate

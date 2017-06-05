@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+VROOT_PREFIX=/vagrant/provision
+
+source $VROOT_PREFIX/sitm
+
+nfo "Updating the apt database"
+apt-get update
+
+
+apt_install_deps "vim zsh"
+
+# creating users
+if ! getent passwd pi >/dev/null ; then
+	adduser --quiet --system --home /home/pi --shell /bin/sh pi
+fi
+
+
+nfo "You have been provisioned. Goodbye!"

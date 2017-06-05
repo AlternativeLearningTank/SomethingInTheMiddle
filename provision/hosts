@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+RPI_HOST=172.22.22.22

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# prevent vagrant stdin related errors
+#sed -i 's/^mesg n$/tty -s \&\& mesg n/g' /root/.profile
+
+fatal () {
+  echo "\033[31m$0: fatal: $*" >&2; echo "\033[0m"
+  exit 99
+}
+
+warning () {
+  echo "\033[33m$0: warning: $*" >&2; echo "\033[0m"
+}
+
+nfo () {
+  echo "\033[36minfo: $*" >&2; echo "\033[0m"
+}
+
+section () {
+	echo "\033[30;43m====[ $* ]==================================================================\033[0m"
+}
+
+say () {
+    echo "--------------------------------------------------------"
+    echo "$1"
+    echo "--------------------------------------------------------"
+}
+
+
+apt_install_deps() {
+  say "Installing packages we need"
+  for dep in $1
+  do
+  	nfo "Installing ${dep}..."
+  	apt-get install -q -y $dep || fatal "unable to install $dep"
+  done
+}

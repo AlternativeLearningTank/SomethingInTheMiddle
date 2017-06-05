@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# import configuration variables
+source $VROOT_PREFIX/hosts
+
+# import modules
+source $VROOT_PREFIX/zlib/common
+source $VROOT_PREFIX/zlib/rpifind
+source $VROOT_PREFIX/zlib/sshkeys
