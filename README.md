@@ -18,9 +18,9 @@ With SiTM you can look into the sites that people are visiting, the headers of w
 
 To create a *sitm* access point you will need:
 
-  - One computer running either OSX or Linux, this will be *your workstation*
+  - One computer running either OSX or Linux, this can be *your workstation*
   - A Raspberry Pi 3 (RPi from here on)
-  - An SD card with a minimum of 8Gb of capacity (a "Class 10" card with 16Gb is recommended)
+  - An SD card with a minimum of 8Gb of capacity (we recommend a "Class 10" card with 16Gb)
   - You will need an existing router that connects you to the internet, this will be your *uplink*.
   - And a network cable (CAT5) to connect your Raspberry Pi 3 to the router.
 
@@ -36,6 +36,21 @@ If you don't know how to do this and are already stuck, you can read this guide.
 
 ### Connecting the Rpi to your network
 
+#### Finding the IP address of your Rpi
+
+There are many ways of finding the IP address of the Rpi in your network. You will need this IP address many times in the following steps, so write it down and keep it handy.
+
+  1. You can use [Adafruit's Pi Finder](https://github.com/adafruit/Adafruit-Pi-Finder/releases).
+  2. you can go to the *sitm* directory in your workstation using a terminal and type:
+  ```
+  $ source sitm
+  $ rpi-find
+  ```
+  3. you can just type in a terminal:
+  ```
+  $ arp -na | grep -i b8:27:eb
+  ```
+
 ### Configuring your RPi for use with *sitm*
 
 SiTM is specifically designed for the Raspberry Pi 3. We have also tested it with success on Raspberry Pi 2 Model B+ using WiFi dongles, but it requires a fair bit of manual tweaking for each different WiFi card, so we recommend you use the Raspberry Pi 3, which comes with a built-in WiFi chip that can work in AP mode making the setup process much less complicated.
@@ -48,7 +63,7 @@ To make *sitm* easy, we wrote a provisioning script for you. You will have to ex
 
 ### Side-effects of provisioning
 
-A fresh Rasbian install will have a user account named `pi`, with `raspberry` as default password. When the SSH service is enabled this means that anybody can try to log into your Rpi using those default credentials.
+A fresh Rasbian install will have a user account named `pi`, with `raspberry` as default password, this is a so-called *factory setting* that we want to avoid. When the SSH service is enabled this means that anybody can try to log into your Rpi using those default credentials.
 
 During the provisioning process, *sitm* disables the default account and creates another account named `someone`, with `verycurious` as password, but this account will only let you log in using an SSH key pair. *Sitm* does this to try and keep your access point as secure as we can.
 
@@ -62,7 +77,6 @@ username and password but I like to install an SSH key as well. Follows these st
 
  3. Try to SSH into your Rpi by typing `ssh -i id_rpi_default pi@<the_ip_address_of_your_rpi>` and you should be able to log into your Rpi without having to enter a password.
 
-If you do not know how to get the IP address of your Rpi, you can use [Adafruit's Pi Finder](https://github.com/adafruit/Adafruit-Pi-Finder/releases).
 
 #### Installing *sitm*
 
