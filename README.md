@@ -9,11 +9,11 @@
 
 *Sitm* is a specially configured WiFi router that allows you to intercept all the communications going through it. With SiTM you can look into the sites that people are visiting, the headers of what they are reading, the images they are looking at, etc.
 
-*Sitm* is designed with two audiences in mind: as a classroom tool so that students can better understand how their network access works. And as a design kit to enable artists and designers that want to work with networks to get started.
+*Sitm* is designed with two audiences in mind: as a classroom tool so that students can better understand how their network access works. And as a design kit to enable artists and designers that want to work with networks to focus on their design work rather than going through the arduous technical process of setting up a router from scratch.
 
 ### Setting up your RPi for the first time
 
-You will need a Raspberry Pi for this and a WiFi dongle capable of access point (AP) mode.
+SiTM is specifically designed for the Raspberry Pi 3. We have also tested it with success on Raspberry Pi 2 Model B+ using WiFi dongles, but it requires a fair bit of manual tweaking for each different WiFi card, so we recommend you use the Raspberry Pi 3, which comes with a built-in WiFi chip that can work in AP mode.
 
 ### Provisioning
 
