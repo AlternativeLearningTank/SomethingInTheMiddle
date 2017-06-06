@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+source sitm
+
+su_check
+
+# if [[ $# -lt 1 ]];
+# 	then echo "You need to name for your access point!"
+# 	echo "Usage:"
+# 	echo "sudo $0 SSID [PASSWORD]"
+# 	exit
+# fi
+
+# if there are more than 2 arguments
+if [[ $# -eq 1 ]]; then
+	AP_SSID=$1
+  nfo "Configuring access point with name $AP_SSID"
+fi
+
+
+ap_prepare
+ap_configure_daemon
+
+
+nfo "Access point is ready, reboot for changes to take effect"
+nfo "Done. Goodbye!"

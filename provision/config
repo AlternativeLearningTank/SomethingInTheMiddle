@@ -1,0 +1,3 @@
+AP_SSID="sitm"
+AP_CHANNEL=10
+AP_INTERFACE=wlan0

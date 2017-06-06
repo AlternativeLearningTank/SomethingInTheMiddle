@@ -3,4 +3,12 @@
 source $VROOT_PREFIX/hosts
 source $VROOT_PREFIX/sitm
 
+# if the destination host is supplied in the command line
+# use that instead of the default
+if [[ $# -eq 1 ]]; then
+	RPI_HOST=$1
+fi
+
+
+nfo "Destination host is $RPI_HOST"
 ssh_key_install $RPI_HOST

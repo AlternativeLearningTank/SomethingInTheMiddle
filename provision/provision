@@ -15,5 +15,21 @@ if ! getent passwd pi >/dev/null ; then
 	adduser --quiet --system --home /home/pi --shell /bin/sh pi
 fi
 
+base_config
+python_pip_install $PYTHON_REQUIREMENTS
 
-nfo "You have been provisioned. Goodbye!"
+echo
+nfo "#########################################################################"
+nfo "You have been provisioned!"
+nfo "This means that we have installed all the necessary software and that your Raspberry Pi is ready to be configured as a SITM node."
+echo
+nfo "You may now log into your RPi by typing:"
+nfo "ssh sitm@$RPI_HOST"
+echo
+nfo "Once you are logged in type:"
+nfo "sudo ./apinstall"
+echo
+nfo "This will configure your Raspberry Pi as a SITM access point"
+echo
+nfo "Goodbye!"
+nfo "#########################################################################"

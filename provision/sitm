@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
+if [ -z ${VROOT_PREFIX+x} ]; then VROOT_PREFIX=.; fi
+
 # import configuration variables
 source $VROOT_PREFIX/hosts
+source $VROOT_PREFIX/config
 
 # import modules
 source $VROOT_PREFIX/zlib/common
 source $VROOT_PREFIX/zlib/rpifind
 source $VROOT_PREFIX/zlib/sshkeys
+source $VROOT_PREFIX/zlib/base
+source $VROOT_PREFIX/zlib/pylibs
+source $VROOT_PREFIX/zlib/accesspoint

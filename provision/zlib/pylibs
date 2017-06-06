@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+PYTHON_REQUIREMENTS="scapy scapy_http RPi.GPIO"
+
+python_pip_install() {
+  say "Installing python libraries"
+  for pylib in $1
+  do
+    nfo "Installing ${pylib}..."
+    pip install --noinput $pylib || fatal "unable to install Python library $pylib"
+  done
+}

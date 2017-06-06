@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+ap_prepare() {
+  nfo "Preparing dependencies to configure access point"
+  apt-get remove --purge hostapd -y
+  apt-get install hostapd dnsmasq -y
+}
+
+ap_configure_daemon() {
+cat > /etc/systemd/system/hostapd.service <<EOF
+[Unit]
+Description=Hostapd IEEE 802.11 Access Point
+After=sys-subsystem-net-devices-wlan0.device
+BindsTo=sys-subsystem-net-devices-wlan0.device
+
+[Service]
+Type=forking
+PIDFile=/var/run/hostapd.pid
+ExecStart=/usr/sbin/hostapd -B /etc/hostapd/hostapd.conf -P /var/run/hostapd.pid
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cat > /etc/hostapd/hostapd.conf <<EOF
+interface=$AP_INTERFACE
+hw_mode=g
+channel=$AP_CHANNEL
+auth_algs=1
+wpa=2
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=CCMP
+rsn_pairwise=CCMP
+ssid=$AP_SSID
+EOF
+}
+
+ap_configure_dns() {
+cat > /etc/dnsmasq.conf <<EOF
+interface=wlan0
+dhcp-range=10.0.0.2,10.0.0.5,255.255.255.0,12h
+EOF
+}
+
+ap_configure_networking() {
+  echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf
+
+  sed -i -- 's/allow-hotplug wlan0//g' /etc/network/interfaces
+  sed -i -- 's/iface wlan0 inet manual//g' /etc/network/interfaces
+  sed -i -- 's/    wpa-conf \/etc\/wpa_supplicant\/wpa_supplicant.conf//g' /etc/network/interfaces
+
+cat >> /etc/network/interfaces <<EOF
+	wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Added by rPi Access Point Setup
+allow-hotplug wlan0
+iface wlan0 inet static
+	address 10.0.0.1
+	netmask 255.255.255.0
+	network 10.0.0.0
+	broadcast 10.0.0.255
+
+EOF
+
+  systemctl enable hostapd
+}
