@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import os
 from scapy.all import IP, sniff
 from scapy.layers import http
 from pprint import pprint
@@ -23,5 +23,9 @@ def process_http_packet(packet):
     http_layer = packet.getlayer(http.HTTPRequest)
     ip_layer = packet.getlayer(IP)
     handle_capture(ip_layer.fields['src'], http_layer.fields['Host'], http_layer.fields['Path'], http_layer.fields['Method'])
+
+
+if not os.geteuid() == 0:
+    sys.exit("\nPlease run this script as root, thanks.\n")
 
 sniff(iface='wlan0', filter='tcp port 80', prn=process_http_packet)
