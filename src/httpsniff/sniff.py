@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os
+import os, sys
 from scapy.all import IP, sniff
 from scapy.layers import http
 from pprint import pprint
