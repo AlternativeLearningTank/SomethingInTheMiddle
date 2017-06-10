@@ -22,7 +22,10 @@ def process_http_packet(packet):
         return
     http_layer = packet.getlayer(http.HTTPRequest)
     ip_layer = packet.getlayer(IP)
-    handle_capture(ip_layer.fields['src'], http_layer.fields['Host'], http_layer.fields['Path'], http_layer.fields['Method'])
+    try:
+        handle_capture(ip_layer.fields['src'], http_layer.fields['Host'], http_layer.fields['Path'], http_layer.fields['Method'])
+    except KeyError as ke:
+        pass
 
 
 if not os.geteuid() == 0:
