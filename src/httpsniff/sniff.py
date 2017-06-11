@@ -8,9 +8,47 @@ import socket
 
 
 MQTT_TOPIC="sitm/http"
-portlist = [80]
+portlist = [53, 80, 443]
+destinations = {}
+
+def collect_data(dst, dport, host = None, path = None, ):
+    if not destinations.has_key(dst):
+        destinations[dst] = {dport: 1}
+        return
+
+    if not destinations[dst].has_key(dport):
+        destinations[dst][dport] = 1
+        return
+
+    destinations[dst][dport] += 1
+    return
+
+def print_data():
+    print
+    for dst in destinations.keys():
+        try:
+            name, aliases, ip = socket.gethostbyaddr(dst)
+        except Exception:
+            name = 'unknown'
+            aliases = []
+            ip = dst
+        print('##################################################')
+        print('Destination Address: {}'.format(dst))
+        print('Destination Name:    {}'.format(name))
+        if len(aliases) > 0:
+            print('Destination Aliases: '),
+            for alias in aliases:
+                print('{}, '),
+            print
+        print
+        print('Port: Connection Count')
+        for dport in destinations[dst].keys():
+            print('{:4}: {:4}'.format(dport, destinations[dst][dport]))
+        print
+    print '```'
 
 def handle_http_capture(src, dst, sport, dport, host, method, path):
+    collect_data(dst, dport)
     msg = '{src}:{sport} -> {dst}:{dport} {method} {host}{path}'.format(src=src, dst=dst, sport=sport, dport=dport, host=host, method=method, path=path)
     print msg
     # publish.single(topic=MQTT_TOPIC, payload=msg)
@@ -18,11 +56,8 @@ def handle_http_capture(src, dst, sport, dport, host, method, path):
 def handle_capture(src, dst, sport, dport):
     if dport not in portlist:
         return
-    try:
-        name, a, i = socket.gethostbyaddr(dst)
-    except Exception as e:
-        name = 'unknown'
-    msg = '{src}:{sport} -> {dst}:{dport} ({name})'.format(src=src, dst=dst, sport=sport, dport=dport, name=name)
+    collect_data(dst, dport)
+    msg = '{src}:{sport} -> {dst}:{dport}'.format(src=src, dst=dst, sport=sport, dport=dport)
     print msg
     # publish.single(topic=MQTT_TOPIC, payload=msg)
 
@@ -53,5 +88,6 @@ def process_http_packet(packet):
 
 if not os.geteuid() == 0:
     sys.exit("\nPlease run this script as root, thanks.\n")
-# sniff(iface='wlan0', filter='tcp and ( port 80 or port 443 )', prn=process_http_packet)
+print '### Something In The Middle, Maybe - Report\n```'
 sniff(iface='wlan0', filter='udp or tcp', prn=process_http_packet, store=0)
+print_data()
