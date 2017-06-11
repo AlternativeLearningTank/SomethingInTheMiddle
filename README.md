@@ -4,7 +4,8 @@
 
 *Sitm* emerges from our collective practice as the Alternative Learning Tank and is heavily inspired by projects such as [Dowse](http://dowse.equipment/), [alt.exit](http://alternativelearningtank.net/) and the [NetAidKit](https://netaidkit.net/).
 
-*Sitm* is a project initiated by the [*Alternative Learning Tank*](http://alternativelearningtank.net/).
+*Sitm* is a project initiated by the [*Alternative Learning Tank*](http://alternativelearningtank.net/) and developed during various collective
+efforts at Balkoncito in Amsterdam, Constant in Brussels, etc.
 
 ## How does it work?
 
