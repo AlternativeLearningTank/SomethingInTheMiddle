@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]
+	then echo "Please become root. Thanks!"
+	exit
+fi
+
+echo "Starting sniffer script"
+nohup python src/httpsniff/sniff.py > /dev/null 2>&1 &
