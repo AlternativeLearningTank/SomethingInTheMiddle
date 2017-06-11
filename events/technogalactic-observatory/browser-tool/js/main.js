@@ -29,6 +29,7 @@ var sitmclient = {
       console.log("subscribing to " + mqtt_topic);
       sitmclient.client.subscribe(mqtt_topic, {qos: 0});
       sitmclient.observing = true;
+      $('div#log').empty();
       $('a#btnStart').html('Stop observation');
       $('a#btnStart').toggleClass("alert");
     },
