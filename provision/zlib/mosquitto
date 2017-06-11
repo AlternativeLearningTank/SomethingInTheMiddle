@@ -7,12 +7,7 @@ mosquitto_config() {
   sudo cd /etc/apt/sources.list.d/
   sudo nano /etc/apt/sources.list.d/raspi.list
   cd /etc/apt/sources.list.d/
-  ls -l
-  sudo sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.list
-  ls -l
-  1
   sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
-  ls -l
   sudo apt-get update
   sudo apt-get install mosquitto mosquitto-clients
 
