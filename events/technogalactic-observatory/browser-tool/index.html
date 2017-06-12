@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+  <link rel="stylesheet" href="css/foundation.css">
+
+  <style>
+  #header {
+    float: none;
+    margin: 40px auto;
+    padding: 0;
+    height: 120px;
+    background-color: #ffffff;
+    border-bottom: solid 2px #000000;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  #thembuttons {
+    margin: 0 40px 0 40px;
+    width: 100%;
+  }
+
+  #headertitle {
+    margin: 0 0 0 40px;
+    font-size: 2.8em;
+  }
+
+  #log {
+    width: 80%;
+    margin: 0 auto;
+    font-family: monospace;
+    background: #fefefe;
+  }
+  </style>
+</head>
+<body>
+  <body class="notconnected">
+
+  <div id="header">
+      <div>
+          <a href="#"><img id="headerlogo" src="assets/rocket.jpg"></a>
+          <span id="headertitle">Observatorio Technog&aacute;lactico de Redes</span>
+      </div>
+  </div>
+
+  <div id="thembuttons">
+    <a id="btnStart" class="small button success" onclick="toggle();">Start observation</a>
+  </div>
+
+  <div id="log">
+  </div>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/mqttws31.js" type="text/javascript"></script>
+
+  <script src="config.js" type="text/javascript"></script>
+  <script src="js/main.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+  $(document).ready(function () {
+    sitmclient.init();
+  }); // on document
+
+  function toggle() {
+    sitmclient.toggle();
+  }
+  </script>
+
+</body>
+</html>
