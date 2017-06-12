@@ -21,18 +21,12 @@ the status dot is green
 
 Have fun!
 
-## Notes for the clinic
-
-1. The *doctor's* computer should be on another network.
-2. Autostart `mosquitto` service
-3. Auto start sniffer script
-
-## Stuff we left behind
+## Stuff I left behind
 
 Belonging to Luis:
-  1x TP-LINK WN823N WiFi dongle
-  1x Raspberry Pi with case
-  1x USB to USB-mini cable
-  1x USB to USB-micro cable
-  1x short CAT5 network cable
-  1x microSD card
+  - 1x TP-LINK WN823N WiFi dongle
+  - 1x Raspberry Pi with case
+  - 1x USB to USB-mini cable
+  - 1x USB to USB-micro cable
+  - 1x short CAT5 network cable
+  - 1x microSD card
