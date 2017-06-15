@@ -60,6 +60,11 @@ ap_configure_networking() {
   sed -i -- 's/iface wlan0 inet manual//g' /etc/network/interfaces
   sed -i -- 's/    wpa-conf \/etc\/wpa_supplicant\/wpa_supplicant.conf//g' /etc/network/interfaces
 
+  # setting IP forwarding
+  echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward
+  # set as permanent
+  sysctl -w net.ipv4.ip_forward=1
+
 cat >> /etc/network/interfaces <<EOF
 	wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
@@ -76,4 +81,7 @@ up iptables-restore < /etc/local/sitm/iptables.ipv4.nat
 EOF
 
   systemctl enable hostapd
+
+  # restart networking services
+  service network restart
 }
