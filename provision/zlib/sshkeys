@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 ssh_key_generate() {
-  info "We are going to generate an SSH key for our RPi"
+  nfo "We are going to generate an SSH key for our RPi"
   ssh-keygen -f ~/.ssh/id_rpi_default -t rsa -C "someone@sitm.local" -b 4096
 }
 
 # params:
 #   $1 -> Rpi hostname/ip
 ssh_key_install() {
-  info "Installing RPi default SSH key i RPi host at $1"
-  cat ~/.ssh/id_rpi_default.pub | ssh someone@$1 'cat - >> ~/.ssh/authorized_keys'
+  nfo "Installing RPi default SSH key i RPi host at $1"
+  cat ~/.ssh/id_rpi_default.pub | ssh pi@$1 'mkdir -p ~/.ssh && cat - >> ~/.ssh/authorized_keys'
 }

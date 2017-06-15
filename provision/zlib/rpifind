@@ -4,3 +4,7 @@ rpi-find() {
   echo "Locating Rpi in your network"
   arp -na | grep -i b8:27:eb
 }
+
+rpi-ssh() {
+  ssh -i ~/.ssh/id_rpi_default pi@$1
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source $VROOT_PREFIX/hosts
-source $VROOT_PREFIX/sitm
+source hosts
+source sitm
 
 # if the destination host is supplied in the command line
 # use that instead of the default
