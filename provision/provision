@@ -25,31 +25,31 @@ python_pip_install $PYTHON_REQUIREMENTS
 mosquitto_install_and_config
 
 echo
-nfo "#########################################################################"
-nfo ">>> You have been provisioned! <<<"
-nfo "This means that we have installed all the necessary software and that your Raspberry Pi is ready to be configured as a SITM node."
+echo "#########################################################################"
+echo ">>> You have been provisioned! <<<"
+echo "This means that we have installed all the necessary software and that your Raspberry Pi is ready to be configured as a SITM node."
 echo
-nfo "You are now ready to move onto the second step, installing your SSH key in the Rpi."
-echo
-echo
-nfo "Make sure you have generated the SSH keypair in your workstation by executing the script provided:"
-nfo "$ ./keygen"
-echo
-nfo "After that you have to install the public part of the keypair in the Raspberry Pi, you can use the script for that:"
-echo
-nfo "$ ./keyinstall"
+echo "You are now ready to move onto the second step, installing your SSH key in the Rpi."
 echo
 echo
-nfo "You should now be able to log into your Raspberry Pi by typing:"
-nfo "$ ssh someone@$RPI_HOST"
-nfo "You shouldn't be asked for a password"
+echo "Make sure you have generated the SSH keypair in your workstation by executing the script provided:"
+echo "$ ./keygen"
+echo
+echo "After that you have to install the public part of the keypair in the Raspberry Pi, you can use the script for that:"
+echo
+echo "$ ./keyinstall"
 echo
 echo
-nfo "Once you are logged in, you can continue the process by typing:"
-nfo "sudo ./apinstall SSID_NAME [AP_PASSWORD]"
+echo "You should now be able to log into your Raspberry Pi by typing:"
+echo "$ ssh someone@$RPI_HOST"
+echo "You shouldn't be asked for a password"
 echo
-nfo "This will configure your Raspberry Pi as a SITM access point with the name you provided (e.g. SSID_NAME)"
+echo
+echo "Once you are logged in, you can continue the process by typing:"
+echo "sudo ./apinstall SSID_NAME [AP_PASSWORD]"
+echo
+echo "This will configure your Raspberry Pi as a SITM access point with the name you provided (e.g. SSID_NAME)"
 echo
 echo
-nfo "Goodbye!"
-nfo "#########################################################################"
+echo "Goodbye!"
+echo "#########################################################################"
