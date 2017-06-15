@@ -7,7 +7,7 @@ mosquitto_install_and_config() {
 
   if [! -f /etc/apt/sources.list.d/mosquitto-jessie.list]; then
     wget -P /etc/apt/sources.list.d/ http://repo.mosquitto.org/debian/mosquitto-jessie.list
-  if
+  fi
 
   apt-get update
   apt_install_deps $MOSQUITTO_PACKAGES
@@ -15,7 +15,7 @@ mosquitto_install_and_config() {
   nfo "Configuring 'mosquitto' MQTT..."
   cp /etc/mosquitto/mosquitto.conf /etc/mosquitto.config.original
 
-  cat > /etc/mosquitto/conf.d/wsockets.conf <<EOF
+cat > /etc/mosquitto/conf.d/wsockets.conf <<EOF
 listener 1883
 listener 9001
 protocol websockets
