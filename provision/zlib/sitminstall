@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 sitm_install() {
   nfo "Installing `stim` scripts system-wide"
   install -d -m 755 /etc/local/sitm
