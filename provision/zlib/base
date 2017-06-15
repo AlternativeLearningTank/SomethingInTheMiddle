@@ -9,7 +9,7 @@ base_config() {
 
   nfo "Generate locales to prevent annoying SSH messages"
   locale-gen "en_US.UTF-8"
-  dpkg-reconfigure locales
+  dpkg-reconfigure -f noninteractive locales
 
   nfo "Removing Wolfram Alpha, it's big and we don't need it"
   apt-get remove --purge wolfram-alpha
