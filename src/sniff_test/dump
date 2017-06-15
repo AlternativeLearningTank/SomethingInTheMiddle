@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+
+tcpdump -A -i wlan0 -vv 'port 80 or port 443' | grep HTTP

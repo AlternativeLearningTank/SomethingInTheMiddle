@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.define "sitm" do |config|
 		config.vm.hostname = "sitm.local"
 		config.vm.network :private_network, ip: sitm_devbox_ip
-		config.vm.network :public_network, :bridge => "wlan0"
+		config.vm.network :public_network, :bridge => "wlan0"  # not sure why this is ignored, it creates a public network correctly though, but names the interface en0   :?
 		config.hostmanager.aliases = [ "www." + "sitm" + ".local" ]
 
 		# Set shared directories
