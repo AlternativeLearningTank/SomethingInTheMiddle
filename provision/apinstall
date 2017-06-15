@@ -17,12 +17,14 @@ if [[ $# -eq 1 ]]; then
   nfo "Configuring access point with name $AP_SSID"
 fi
 
+# first install our sniffer software
+sitm_install
 
+# prepare and configure wifi accesspoint
 ap_prepare
 ap_configure_daemon
 ap_configure_networking
 
-sitm_install
 
 nfo "Access point is ready, reboot for changes to take effect"
 nfo "Done. Goodbye!"
