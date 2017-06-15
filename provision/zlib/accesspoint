@@ -22,6 +22,16 @@ ExecStart=/usr/sbin/hostapd -B /etc/hostapd/hostapd.conf -P /var/run/hostapd.pid
 WantedBy=multi-user.target
 EOF
 
+if [ -z $AP_PASSWORD ]; then
+cat > /etc/hostapd/hostapd.conf <<EOF
+interface=$AP_INTERFACE
+hw_mode=g
+channel=$AP_CHANNEL
+auth_algs=1
+rsn_pairwise=CCMP
+ssid=$AP_SSID
+EOF
+else
 cat > /etc/hostapd/hostapd.conf <<EOF
 interface=$AP_INTERFACE
 hw_mode=g
@@ -33,6 +43,7 @@ wpa_pairwise=CCMP
 rsn_pairwise=CCMP
 ssid=$AP_SSID
 EOF
+fi
 }
 
 ap_configure_dns() {
