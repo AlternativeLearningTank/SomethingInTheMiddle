@@ -28,7 +28,6 @@ say () {
 
 
 apt_install_deps() {
-  say "Installing packages we need"
   for dep in $1
   do
   	nfo "Installing ${dep}..."

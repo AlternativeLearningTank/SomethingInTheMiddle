@@ -1,15 +1,16 @@
 MOSQUITTO_PACKAGES="mosquitto mosquitto-clients"
 
 mosquitto_install_and_config() {
-  nfo "Installing 'mosquitto' MQTT..."
+  nfo "Adding official `mosquitto` apt repo to make sure we get a recent version"
   # for websocket support you need mosquitto 1.4.2 or greater, default Raspbian installs 1.3
   wget --quiet -O - http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key | sudo apt-key add -
 
-  if [ ! -f /etc/apt/sources.list.d/mosquitto-jessie.list]; then
+  if [ ! -f /etc/apt/sources.list.d/mosquitto-jessie.list ]; then
     wget -P /etc/apt/sources.list.d/ http://repo.mosquitto.org/debian/mosquitto-jessie.list
   fi
 
   apt-get update
+  nfo "Installing `mosquitto` MQTT broker packages"
   apt_install_deps $MOSQUITTO_PACKAGES
 
   nfo "Configuring 'mosquitto' MQTT..."

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-PYTHON_REQUIREMENTS="scapy scapy_http RPi.GPIO"
+PYTHON_REQUIREMENTS="scapy scapy-http RPi.GPIO paho-mqtt"
 
 python_pip_install() {
   say "Installing python libraries"
-  for pylib in $1
+  for pylib in $PYTHON_REQUIREMENTS
   do
     nfo "Installing ${pylib}..."
     pip install $pylib || fatal "unable to install Python library $pylib"
