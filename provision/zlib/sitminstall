@@ -1,0 +1,6 @@
+sitm_install() {
+  nfo "Installing `stim` scripts system-wide"
+  install -d -m 755 /etc/local/sitm
+  install -m 644  etc/iptables.ipv4.nat /etc/local/sitm/
+  install -m 755  ../src/httpsniff/sniff.py /usr/local/bin/sitmsniff
+}

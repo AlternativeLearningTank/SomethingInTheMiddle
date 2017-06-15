@@ -71,6 +71,8 @@ iface wlan0 inet static
 	network 10.0.0.0
 	broadcast 10.0.0.255
 
+# load iptables rules
+up iptables-restore < /etc/local/sitm/iptables.ipv4.nat
 EOF
 
   systemctl enable hostapd

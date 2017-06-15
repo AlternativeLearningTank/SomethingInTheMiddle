@@ -22,5 +22,7 @@ ap_prepare
 ap_configure_daemon
 ap_configure_networking
 
+sitm_install
+
 nfo "Access point is ready, reboot for changes to take effect"
 nfo "Done. Goodbye!"

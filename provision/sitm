@@ -14,3 +14,4 @@ source $VROOT_PREFIX/zlib/base
 source $VROOT_PREFIX/zlib/pylibs
 source $VROOT_PREFIX/zlib/mosquitto
 source $VROOT_PREFIX/zlib/accesspoint
+source $VROOT_PREFIX/zlib/sitminstall
