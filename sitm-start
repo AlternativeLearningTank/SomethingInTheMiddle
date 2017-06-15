@@ -6,4 +6,4 @@ if [ "$EUID" -ne 0 ]
 fi
 
 echo "Starting sniffer script"
-nohup python src/httpsniff/sniff.py > /dev/null 2>&1 &
+nohup python src/sniff.py > /dev/null 2>&1 &

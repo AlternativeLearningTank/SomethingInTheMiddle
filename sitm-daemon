@@ -2,7 +2,7 @@
 
 NAME=SomethingInTheMiddle
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-DAEMON=/home/pi/SomethingInTheMiddle/src/httpsniff/sniff.py
+DAEMON=/etc/local/sitm/sniff.py
 PIDFILE=/var/run/sitm.pid
 
 test -x $DAEMON || exit 0
