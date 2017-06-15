@@ -16,10 +16,10 @@ mosquitto_install_and_config() {
   cp /etc/mosquitto/mosquitto.conf /etc/mosquitto.config.original
 
   cat > /etc/mosquitto/conf.d/wsockets.conf <<EOF
-  listener 1883
-  listener 9001
-  protocol websockets
-  EOF
+listener 1883
+listener 9001
+protocol websockets
+EOF
 
   #chown mosquitto /var/log/mosquitto/mosquitto.log
 }
