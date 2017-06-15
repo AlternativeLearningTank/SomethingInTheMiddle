@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-VROOT_PREFIX=/vagrant/provision
+#VROOT_PREFIX=/vagrant/provision
+VROOT_PREFIX=.
 
 source $VROOT_PREFIX/sitm
 
@@ -20,6 +21,8 @@ fi
 
 base_config
 python_pip_install $PYTHON_REQUIREMENTS
+
+mosquitto_install_and_config
 
 echo
 nfo "#########################################################################"

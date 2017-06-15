@@ -7,6 +7,6 @@ python_pip_install() {
   for pylib in $1
   do
     nfo "Installing ${pylib}..."
-    pip install --noinput $pylib || fatal "unable to install Python library $pylib"
+    pip install $pylib || fatal "unable to install Python library $pylib"
   done
 }

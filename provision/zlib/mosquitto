@@ -1,5 +1,6 @@
 
-mosquitto_config() {
+mosquitto_install_and_config() {
+  nfo "Installing and configuring 'mosquitto' MQTT..."
   # for websocket support you need mosquitto 1.4.2 or greater, default Raspbian installs 1.3
   wget --quiet -O - http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key | sudo apt-key add -
   wget -P /etc/apt/sources.list.d/ http://repo.mosquitto.org/debian/mosquitto-jessie.list
