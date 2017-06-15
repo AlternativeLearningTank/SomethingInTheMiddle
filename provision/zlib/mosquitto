@@ -23,4 +23,6 @@ protocol websockets
 EOF
 
   #chown mosquitto /var/log/mosquitto/mosquitto.log
+
+  systemctl enable mosquitto
 }

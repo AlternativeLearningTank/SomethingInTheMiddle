@@ -56,11 +56,25 @@ There are many ways of finding the IP address of the Rpi in your network. You wi
 
 SiTM is specifically designed for the Raspberry Pi 3. We have also tested it with success on Raspberry Pi 2 Model B+ using WiFi dongles, but it requires a fair bit of manual tweaking for each different WiFi card, so we recommend you use the Raspberry Pi 3, which comes with a built-in WiFi chip that can work in AP mode making the setup process much less complicated.
 
+### SSH into your Rpi and download SITM
+
+You now have to access your raspberry pi, via ssh:
+
+```
+pi@raspberry: $ git clone https://github.com/AlternativeLearningTank/SomethingInTheMiddle.git
+pi@raspberry: $ cd SomethingInTheMiddle
+```
+
 ### Provisioning
 
 Provisioning means installing all the necessary software in your Rpi and leaving it ready to work with the *sitm* tools.
 
 To make *sitm* easy, we wrote a provisioning script for you. You will have to execute this script from the command line, if you have never worked with the terminal you can [follow this tutorial](https://github.com/IDArnhem/CLI-CommandNoir).
+
+```
+pi@raspberry: $ cd provision
+pi@raspberry: $ sudo ./provision
+```
 
 ### Side-effects of provisioning
 
