@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 import os, sys
+import time
+import datetime
+from pprint import pprint
+import netaddr
 from scapy.all import *
 from scapy.layers import http
 from pprint import pprint
@@ -139,6 +143,43 @@ def print_udp_packet(packet):
             )
     return msg
 
+def print_wifi_probe(packet):
+    if not packet.haslayer(Dot11):
+        return
+
+    # we are looking for management frames with a probe subtype
+    # if neither match we are done here
+    if packet.type != 0 or packet.subtype != 0x04:
+        return
+
+    # list of output fields
+    fields = []
+
+    # determine preferred time format 
+    log_time = str(int(time.time()))
+    # if time_fmt == 'iso':
+    # 	log_time = datetime.datetime.now().isoformat()
+
+    fields.append(log_time)
+
+    # append the mac address itself
+    fields.append(packet.addr2)
+
+    # parse mac address and look up the organization from the vendor octets
+    try:
+        parsed_mac = netaddr.EUI(packet.addr2)
+        fields.append(parsed_mac.oui.registration().org)
+    except netaddr.core.NotRegisteredError, e:
+        fields.append('UNKNOWN')
+
+    # include the SSID in the probe frame
+    fields.append(packet.info)
+        
+    rssi_val = -(256-ord(packet.notdecoded[-4:-3]))
+    fields.append(str(rssi_val))
+
+    print(fields)
+
 def print_dot11_packet(packet):
     """
     see: https://supportforums.cisco.com/t5/wireless-mobility-documents/802-11-frames-a-starter-guide-to-learn-wireless-sniffer-traces/ta-p/3110019#toc-hId--1447989924
@@ -147,8 +188,9 @@ def print_dot11_packet(packet):
     subtype = 4     => probe request
     subtype = 8     => beacon
     """
-    if packet.type == 0 and ((packet.subtype == 8) or (packet.subtype == 4)):
-        print("probe or beacon >>> {0}".format(packet.info))
+    if packet.type == 0 and (packet.subtype == 4):
+        print_wifi_probe(packet)
+        #print("probe or beacon >>> {0}".format(packet.info))
 
 
 def print_packet(packet):
@@ -171,7 +213,7 @@ def process_packet(packet):
         if msg:
             print msg
         # dispatch over MQTT
-        publish.single(topic=MQTT_TOPIC_HTTP, payload=msg)
+        #publish.single(topic=MQTT_TOPIC_HTTP, payload=msg)
     else:
         return
     
@@ -214,5 +256,5 @@ if __name__ == '__main__':
     parser.add_argument('output', help='path-to-output-file')
     #args = parser.parse_args()
 
-    sniff(iface='wlan0', filter='udp or tcp', prn=process_packet)
-    pickle.dump(packet_list, open(args.output, 'wb'))
+    sniff(iface='mon0', prn=process_packet) #, filter='udp or tcp', prn=process_packet)
+    #pickle.dump(packet_list, open(args.output, 'wb'))
