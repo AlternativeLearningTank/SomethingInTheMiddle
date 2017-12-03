@@ -97,3 +97,25 @@ username and password but I like to install an SSH key as well. Follows these st
 
 You can use the provided script `./sitm-install` to execute the Ansible script that
 will install SomethingInTheMiddle and all its associated dependencies.
+
+
+## Using SiTM to sniff WiFi traffic
+
+You will need a second WiFi dongle to set in monitor mode, I use an `ALFA AWUS051NH v.2` on `wlan1` on the Rpi.
+
+To ease the setup of the WiFi setup I made a script called `sitm-wifi`, you must run it with `sudo` for it to be able to make changes to your network interfaces.
+
+To set up your network configuration ready for monitor mode capture, run the script like this:
+```
+# ./sitm-wifi setup
+```
+
+To start using `airodump` to immediately see wifi packets in your vicinity:
+
+```
+# ./sitm-wifi start
+```
+
+This does not run the mqtt message pump needed by the javascript mqtt client.
+
+
