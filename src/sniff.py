@@ -8,7 +8,9 @@ import socket
 import argparse
 import pickle
 
-MQTT_TOPIC="sitm/http"
+MQTT_TOPIC_HTTP="sitm/http"
+MQTT_TOPIC_WIFI="sitm/wifi"
+
 portlist = [53, 80, 443]
 destinations = {}
 
@@ -75,7 +77,7 @@ def handle_http_capture(src, dst, sport, dport, host, method, path):
     collect_data(dst, dport)
     msg = '{src}:{sport} -> {dst}:{dport} {method} {host}{path}'.format(src=src, dst=dst, sport=sport, dport=dport, host=host, method=method, path=path)
     print msg
-    # publish.single(topic=MQTT_TOPIC, payload=msg)
+    # publish.single(topic=MQTT_TOPIC_HTTP, payload=msg)
 
 def handle_capture(src, dst, sport, dport):
     if dport not in portlist:
@@ -83,7 +85,7 @@ def handle_capture(src, dst, sport, dport):
     collect_data(dst, dport)
     msg = '{src}:{sport} -> {dst}:{dport}'.format(src=src, dst=dst, sport=sport, dport=dport)
     print msg
-    # publish.single(topic=MQTT_TOPIC, payload=msg)
+    # publish.single(topic=MQTT_TOPIC_HTTP, payload=msg)
 
 def process_http_packet(packet):
     '''
@@ -137,7 +139,22 @@ def print_udp_packet(packet):
             )
     return msg
 
+def print_dot11_packet(packet):
+    """
+    see: https://supportforums.cisco.com/t5/wireless-mobility-documents/802-11-frames-a-starter-guide-to-learn-wireless-sniffer-traces/ta-p/3110019#toc-hId--1447989924
+
+    type    = 0     => management frame
+    subtype = 4     => probe request
+    subtype = 8     => beacon
+    """
+    if packet.type == 0 and ((packet.subtype == 8) or (packet.subtype == 4)):
+        print("probe or beacon >>> {0}".format(packet.info))
+
+
 def print_packet(packet):
+    if packet.haslayer(Dot11):
+        return print_dot11_packet(packet)
+
     if packet.haslayer(TCP):
         return print_tcp_packet(packet)
 
@@ -145,18 +162,22 @@ def print_packet(packet):
         return print_udp_packet(packet)
 
 def process_packet(packet):
-    ip_layer = packet.getlayer(IP)
-    if not ip_layer:
+    if packet.haslayer(Dot11) or packet.haslayer(IP):
+        # d = packet2dict(packet)
+        # if not d:
+        #     return
+        # packet_list.append(d)
+        msg = print_packet(packet)
+        if msg:
+            print msg
+        # dispatch over MQTT
+        publish.single(topic=MQTT_TOPIC_HTTP, payload=msg)
+    else:
         return
-
-    d = packet2dict(packet)
-    if not d:
-        return
-    packet_list.append(d)
-    msg = print_packet(packet)
-    if msg:
-        print msg
-	publish.single(topic=MQTT_TOPIC, payload=msg)
+    
+    #ip_layer = packet.getlayer(IP)
+    #if not ip_layer:
+    #    return
 
 def packet2dict(packet):
     d = {}
