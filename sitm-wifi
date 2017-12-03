@@ -1,0 +1,48 @@
+#!/bin/bash
+
+INTERFACE=wlan1
+
+wifi_show() {
+	ifconfig
+	iw dev
+}
+
+
+wifi_setup() {
+	ifconfig $INTERFACE down
+	iwconfig $INTERFACE mode monitor
+	ifconfig $INTERFACE up
+}
+
+wifi_monitor() {
+	airmon-ng start $INTERFACE
+}
+
+
+wifi_start() {
+	wifi_monitor
+	airodump-ng --manufacturer mon0
+}
+
+if [ "$EUID" -ne 0 ]
+	then echo "Please become root. Thanks!"
+	exit 1
+fi
+
+case "$1" in
+  start) 
+   wifi_start ;;
+  setup) 
+   wifi_setup
+   wifi_monitor
+   ;;
+  status)
+   wifi_show
+   ;;
+ *)
+   echo "Usage: sitm-wifi {start|setup|status}"
+   exit 1
+  ;;
+esac
+
+exit 0
