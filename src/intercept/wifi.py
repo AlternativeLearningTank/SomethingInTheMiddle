@@ -5,6 +5,34 @@ from pprint import pprint
 import netaddr
 from scapy.all import *
 from scapy.layers import http
+from intercept import *
+import paho.mqtt.publish as publish
+
+class WifiBeacon:
+    def __init__(self):
+        self.ssid   = "unknown"
+        self.bssid   = "--"
+        self.channel   = None
+        self.mac    = None
+
+    def __str__(self):
+        return "{0.rssi}    {0.ssid}    {0.mac}".format(self)
+
+    def publish(self):
+        msg = str(self)
+        publish.single(topic=MQTT_TOPIC_WIFI_BEACON, payload=msg)
+
+    @staticmethod
+    def parse(pkt):
+        beacon = WifiBeacon()
+
+        beacon.ssid       = pkt[Dot11Elt].info
+        beacon.bssid      = pkt[Dot11].addr3
+        beacon.mac        = pkt.addr2
+        beacon.channel    = int( ord(pkt[Dot11Elt:3].info))
+
+        return beacon
+
 
 class WifiProbe:
     def __init__(self):
@@ -13,6 +41,13 @@ class WifiProbe:
         self.mac    = None
         self.manufacturer = "unknown"
         self.rssi   = 0
+    
+    def __str__(self):
+        return "{0.tstamp}  {0.rssi}    {0.ssid}    {0.mac} {0.manufacturer}".format(self)
+
+    def publish(self):
+        msg = str(self)
+        publish.single(topic=MQTT_TOPIC_WIFI_BEACON, payload=msg)
 
     @staticmethod
     def parse(pkt):
@@ -51,21 +86,40 @@ class WifiProbeScanner:
     """
     def __init__(self):
         self.probes = dict()  # mac address is key to this dictionary
-    
+        self.beacons = dict()
+ 
     def process(self, pkt):
         """
         see: https://github.com/ivanlei/airodump-iv/blob/master/airoiv/airodump-iv.py
         """
-        if not pkt.haslayer(Dot11):
-            return
 
         # we are looking for management frames with a probe subtype
         # if neither match we are done here
-        if pkt.type != 0 or pkt.subtype != 0x04:
+        if pkt.haslayer(Dot11) and (pkt.type == 0):
+            if (pkt.subtype == 0x04):
+                probe = WifiProbe.parse(pkt)
+                # do we already have aprobe for that ssid?
+                if probe.ssid not in self.probes:
+                    self.probes.update( probe.ssid, probe )
+            elif (pkt.subtype == 0x08):
+                beacon = WifiBeacon.parse(pkt)
+                # do we already have aprobe for that ssid?
+                if beacon.ssid not in self.beacons:
+                    self.beacons.update( beacon.ssid, beacon )
+            else:
+                pass
+        else:
             return
-    
-        probe = WifiProbe.parse(pkt)
 
-        # do we already have aprobe for that ssid?
-        if probe.ssid and (not probe.ssid in self.probes):
-            self.probes.append( probe )
+    def count(self):
+        return (len(self.probes), len(self.beacons))
+
+
+# def channel_hopper():
+#     while True:
+#         try:
+#             channel = random.randrange(1,12)
+#             os.system("iw dev %s set channel %d" % (interface, channel))
+#             time.sleep(1)
+#         except KeyboardInterrupt:
+#             break

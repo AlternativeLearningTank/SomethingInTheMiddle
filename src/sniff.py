@@ -3,22 +3,20 @@ import os, sys
 import time
 import datetime
 from pprint import pprint
-from scapy.all import *
-from scapy.layers import http
-from pprint import pprint
-import paho.mqtt.publish as publish
-import socket
+
 from intercept import *
+from intercept.wifi import *
+from intercept.http import *
 
-MQTT_TOPIC_HTTP="sitm/http"
-MQTT_TOPIC_WIFI="sitm/wifi"
+SCAN_PORTS = [53, 80, 443]
 
-portlist = [53, 80, 443]
-destinations = {}
+PktProcessor = None
 
+def process_packet(pkt):
+    PktProcessor.process( pkt )
+    PktProcessor.last.publish()
 
 if __name__ == '__main__':
-
     # root guard
     if not os.geteuid() == 0:
         sys.exit("\nPlease run this script as root, thanks.\n")
@@ -26,5 +24,15 @@ if __name__ == '__main__':
     # read capture options from commandline
     opts = ScannerOptions.parse()
 
-    sniff(iface='mon0', prn=process_packet) #, filter='udp or tcp', prn=process_packet)
-    #pickle.dump(packet_list, open(args.output, 'wb'))
+    print("sitm (cc) root@derfunke.net")
+    print( "Begin scanning on interface '{0}'...".format(opts.iface) )
+    print()
+
+    if opts.type == 'wifi':
+        PktProcessor=WifiProbeScanner()
+        sniff(iface=opts.iface, prn=process_packet) #, filter='udp or tcp', prn=process_packet)
+    elif opts.type == 'http':
+        PktProcessor=HttpScanner()
+        sniff(iface=opts.iface, filter='udp or tcp', prn=process_packet)
+    else:
+        print("Capture type not supported at the moment '", opts.type, "'")

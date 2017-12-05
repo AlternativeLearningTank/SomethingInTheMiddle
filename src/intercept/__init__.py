@@ -1,5 +1,10 @@
 from optparse import OptionParser
 
+MQTT_TOPIC_HTTP="sitm/http"
+MQTT_TOPIC_HTTP_IMG="sitm/http/img"
+MQTT_TOPIC_WIFI_BEACON="sitm/wifi/beacon"
+MQTT_TOPIC_WIFI_PROBE="sitm/wifi/probe"
+
 
 class ScannerOptions:
 	def __init__(self):
@@ -14,7 +19,7 @@ class ScannerOptions:
 	def parse():
 		parser = OptionParser()
 		parser.add_option('-i', '--iface', dest='iface', default='mon0', help='Interface to bind to')
-		parser.add_option('-c', '--channel', dest='channel', default=-1, type='int', help='Channel to bind to')
+		parser.add_option('-t', '--type', dest='type', default='wifi', help='Type of capture [wifi, http, img]')
 		opts, _ = parser.parse_args()
 		
 
