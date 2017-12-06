@@ -20,7 +20,7 @@ class WifiBeacon:
 
     def publish(self):
         msg = str(self)
-        print("802.11 >>> " + msg)
+        print("802.11_beacon >>> " + msg)
         publish.single(topic=MQTT_TOPIC_WIFI_BEACON, payload=msg)
 
     @staticmethod
@@ -48,7 +48,7 @@ class WifiProbe:
 
     def publish(self):
         msg = str(self)
-        print("802.11 >>> " + msg)
+        print("802.11_probe >>> " + msg)
         publish.single(topic=MQTT_TOPIC_WIFI_PROBE, payload=msg)
 
     @staticmethod
@@ -102,12 +102,12 @@ class WifiProbeScanner:
                 probe = WifiProbe.parse(pkt)
                 # do we already have aprobe for that ssid?
                 if probe.ssid not in self.probes:
-                    self.probes.update( probe.ssid, probe )
+                    self.probes.update( { probe.ssid : probe } )
             elif (pkt.subtype == 0x08):
                 beacon = WifiBeacon.parse(pkt)
                 # do we already have aprobe for that ssid?
                 if beacon.ssid not in self.beacons:
-                    self.beacons.update( beacon.ssid, beacon )
+                    self.beacons.update( { beacon.ssid : beacon } )
             else:
                 pass
         else:
