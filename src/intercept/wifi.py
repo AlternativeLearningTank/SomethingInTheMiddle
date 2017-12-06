@@ -103,11 +103,13 @@ class WifiProbeScanner:
                 # do we already have aprobe for that ssid?
                 if probe.ssid not in self.probes:
                     self.probes.update( { probe.ssid : probe } )
+                    self.last = probe
             elif (pkt.subtype == 0x08):
                 beacon = WifiBeacon.parse(pkt)
                 # do we already have aprobe for that ssid?
                 if beacon.ssid not in self.beacons:
                     self.beacons.update( { beacon.ssid : beacon } )
+                    self.last = beacon
             else:
                 pass
         else:
