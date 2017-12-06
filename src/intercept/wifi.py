@@ -108,7 +108,7 @@ class WifiProbeScanner:
             elif (pkt.subtype == 0x08):
                 beacon = WifiBeacon.parse(pkt)
                 # do we already have aprobe for that ssid?
-                if not self.has_key(beacon.ssid):
+                if not self.beacons.has_key(beacon.ssid):
                     self.beacons.update( { beacon.ssid : beacon } )
                     self.last = beacon
             else:
