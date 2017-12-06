@@ -26,12 +26,15 @@ class HttpRequestIntercepted:
         ip   = pkt.getlayer(IP)
         req  = pkt.getlayer(http.HTTPRequest)
 
-        self.ipsrc = ip.fields['src']
-        self.ipdst = ip.fields['dst']
-        self.port  = tcp.fields['dport']
-        self.host  =  req.fields['Host']
-        self.method = req.fields['Method'] 
-        self.path  = req.fields['Path']
+        reqi = HttpRequestIntercepted()
+        reqi.ipsrc = ip.fields['src']
+        reqi.ipdst = ip.fields['dst']
+        reqi.port  = tcp.fields['dport']
+        reqi.host  =  req.fields['Host']
+        reqi.method = req.fields['Method'] 
+        reqi.path  = req.fields['Path']
+        
+        return reqi
 
     def publish(self):
         msg = str(self)
