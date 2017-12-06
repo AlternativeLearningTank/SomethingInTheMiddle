@@ -7,24 +7,24 @@ MQTT_TOPIC_WIFI_PROBE="sitm/wifi/probe"
 
 
 class ScannerOptions:
-	def __init__(self):
-		self.iface = 'mon0'
-		self.packet_count = 0
-		self.channel = -1
-		self.channel_hop = True
-		self.max_channel = -1
-		self.input_file = None
+    def __init__(self):
+        self.iface = 'mon0'
+        self.packet_count = 0
+        self.channel = -1
+        self.channel_hop = True
+        self.max_channel = -1
+        self.input_file = None
         self.verbose = False
-	
-	@staticmethod
-	def parse():
-		parser = OptionParser()
-		parser.add_option('-v', '--verbose', dest='verbose', action="store_true", default=False, help='How much detail')
-		parser.add_option('-i', '--iface', dest='iface', default='mon0', help='Interface to bind to')
-		parser.add_option('-t', '--type', dest='type', default='http', help='Type of capture [wifi, http, img]')
-		opts, _ = parser.parse_args()
+    
+    @staticmethod
+    def parse():
+        parser = OptionParser()
+        parser.add_option('-v', '--verbose', dest='verbose', action="store_true", default=False, help='How much detail')
+        parser.add_option('-i', '--iface', dest='iface', default='mon0', help='Interface to bind to')
+        parser.add_option('-t', '--type', dest='type', default='http', help='Type of capture [wifi, http, img]')
+        opts, _ = parser.parse_args()
         return opts
-		
+        
 
 
 

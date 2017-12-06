@@ -109,18 +109,18 @@ class WifiProbeScanner:
         if pkt.haslayer(Dot11) and (pkt.type == 0):
             if (pkt.subtype == 0x04):
                 probe = WifiProbe.parse(pkt)
-                self.last = probe
-                # # do we already have aprobe for that ssid?
-                # if not self.probes.has_key(probe.ssid):
-                #     self.probes.update( { probe.ssid : probe } )
-                #     self.last = probe
+                # do we already have aprobe for that ssid?
+                if not self.probes.has_key(probe.mac):
+                    self.probes.update( { probe.mac : probe } )
+                
+                probe.publish()
             elif (pkt.subtype == 0x08):
                 beacon = WifiBeacon.parse(pkt)
-                self.last = beacon
-                # # do we already have aprobe for that ssid?
-                # if not self.beacons.has_key(beacon.ssid):
-                #     self.beacons.update( { beacon.ssid : beacon } )
-                #     self.last = beacon
+                # do we already have aprobe for that ssid?
+                if not self.beacons.has_key(beacon.ssid):
+                    self.beacons.update( { beacon.ssid : beacon } )
+
+                beacon.publish()
             else:
                 pass
         else:
