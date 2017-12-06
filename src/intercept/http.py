@@ -40,6 +40,7 @@ class HttpRequestIntercepted:
 class HttpScanner:
     def __init__(self, wl=[80, 8080]):
         self.packets = []
+        self.last = None
         self.whitelist = wl
  
     def process(self, pkt):
