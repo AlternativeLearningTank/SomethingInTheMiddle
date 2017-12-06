@@ -17,7 +17,7 @@ class WifiBeacon:
         self.mac    = None
 
     def __str__(self):
-        return "{0.ssid}  {0.bssid}  {0.mac}".format(self)
+        return "{0.tstamp} {0.ssid}  {0.mac}".format(self)
 
     def publish(self):
         msg = str(self)
@@ -33,6 +33,7 @@ class WifiBeacon:
         beacon.bssid      = pkt[Dot11].addr3
         beacon.mac        = pkt.addr2
         beacon.channel    = int( ord(pkt[Dot11Elt:3].info))
+	#print("<<>> " + pkt[Dot11Elt].info + " " + pkt[Dot11].addr3)
         return beacon
 
 
@@ -96,7 +97,9 @@ class WifiProbeScanner:
         """
         see: https://github.com/ivanlei/airodump-iv/blob/master/airoiv/airodump-iv.py
         """
-
+	#print("-"*80)
+	#print( pkt.summary() )
+	#print("-"*80)
         # we are looking for management frames with a probe subtype
         # if neither match we are done here
         if pkt.haslayer(Dot11) and (pkt.type == 0):
