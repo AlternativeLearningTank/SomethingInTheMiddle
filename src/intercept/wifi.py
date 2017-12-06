@@ -107,13 +107,12 @@ class WifiProbeScanner:
         # we are looking for management frames with a probe subtype
         # if neither match we are done here
         if pkt.haslayer(Dot11) and (pkt.type == 0):
-#            if (pkt.subtype == 0x04):
-#                probe = WifiProbe.parse(pkt)
-#                # do we already have aprobe for that ssid?
-#                if not self.probes.has_key(probe.mac):
-#                    self.probes.update( { probe.mac : probe } )
-#                
-#                probe.publish()
+           if (pkt.subtype == 0x04):
+               probe = WifiProbe.parse(pkt)
+               # do we already have aprobe for that ssid?
+               if not self.probes.has_key(probe.mac):
+                   self.probes.update( { probe.mac : probe } )
+                   probe.publish()
             if (pkt.subtype == 0x08):
                 beacon = WifiBeacon.parse(pkt)
                 # do we already have aprobe for that ssid?
