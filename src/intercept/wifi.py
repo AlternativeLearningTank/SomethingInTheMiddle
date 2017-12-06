@@ -89,6 +89,7 @@ class WifiProbeScanner:
     def __init__(self):
         self.probes = dict()  # mac address is key to this dictionary
         self.beacons = dict()
+        self.last = None
  
     def process(self, pkt):
         """
@@ -101,13 +102,13 @@ class WifiProbeScanner:
             if (pkt.subtype == 0x04):
                 probe = WifiProbe.parse(pkt)
                 # do we already have aprobe for that ssid?
-                if probe.ssid not in self.probes:
+                if not self.probes.has_key(probe.ssid):
                     self.probes.update( { probe.ssid : probe } )
                     self.last = probe
             elif (pkt.subtype == 0x08):
                 beacon = WifiBeacon.parse(pkt)
                 # do we already have aprobe for that ssid?
-                if beacon.ssid not in self.beacons:
+                if not self.has_key(beacon.ssid):
                     self.beacons.update( { beacon.ssid : beacon } )
                     self.last = beacon
             else:
