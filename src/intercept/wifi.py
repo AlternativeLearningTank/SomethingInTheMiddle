@@ -88,7 +88,8 @@ class WifiProbeScanner:
     subtype = 4     => probe request
     subtype = 8     => beacon
     """
-    def __init__(self):
+    def __init__(self, opts):
+        self.options = opts
         self.probes = dict()  # mac address is key to this dictionary
         self.beacons = dict()
         self.last = None
@@ -97,9 +98,12 @@ class WifiProbeScanner:
         """
         see: https://github.com/ivanlei/airodump-iv/blob/master/airoiv/airodump-iv.py
         """
-	#print("-"*80)
-	#print( pkt.summary() )
-	#print("-"*80)
+        
+        if self.options.verbose:
+            print("-"*80)
+            print( pkt.summary() )
+            print("-"*80)
+
         # we are looking for management frames with a probe subtype
         # if neither match we are done here
         if pkt.haslayer(Dot11) and (pkt.type == 0):

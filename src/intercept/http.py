@@ -9,7 +9,8 @@ from intercept import *
 import paho.mqtt.publish as publish
 
 class HttpRequestIntercepted:
-    def __init__(self):
+    def __init__(self, opts):
+        self.options = opts
         self.ipsrc = None
         self.ipdst = None
         self.host  = None
