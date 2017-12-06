@@ -38,6 +38,7 @@ class HttpRequestIntercepted:
 
     def publish(self):
         msg = str(self)
+        print("HTTP >>> " + msg)
         publish.single(topic=MQTT_TOPIC_HTTP, payload=msg)
 
 class HttpScanner:

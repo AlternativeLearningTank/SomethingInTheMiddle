@@ -20,6 +20,7 @@ class WifiBeacon:
 
     def publish(self):
         msg = str(self)
+        print("802.11 >>> " + msg)
         publish.single(topic=MQTT_TOPIC_WIFI_BEACON, payload=msg)
 
     @staticmethod
@@ -47,6 +48,7 @@ class WifiProbe:
 
     def publish(self):
         msg = str(self)
+        print("802.11 >>> " + msg)
         publish.single(topic=MQTT_TOPIC_WIFI_PROBE, payload=msg)
 
     @staticmethod

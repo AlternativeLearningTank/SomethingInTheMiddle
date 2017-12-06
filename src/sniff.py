@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     print("sitm (cc) root@derfunke.net")
     print( "Begin scanning on interface '{0}'...".format(opts.iface) )
-    print()
+    print("")
 
     if opts.type == 'wifi':
         PktProcessor=WifiProbeScanner()
