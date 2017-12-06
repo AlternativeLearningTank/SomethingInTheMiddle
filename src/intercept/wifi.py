@@ -47,7 +47,7 @@ class WifiProbe:
 
     def publish(self):
         msg = str(self)
-        publish.single(topic=MQTT_TOPIC_WIFI_BEACON, payload=msg)
+        publish.single(topic=MQTT_TOPIC_WIFI_PROBE, payload=msg)
 
     @staticmethod
     def parse(pkt):

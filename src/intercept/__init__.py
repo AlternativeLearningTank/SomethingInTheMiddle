@@ -19,7 +19,7 @@ class ScannerOptions:
 	def parse():
 		parser = OptionParser()
 		parser.add_option('-i', '--iface', dest='iface', default='mon0', help='Interface to bind to')
-		parser.add_option('-t', '--type', dest='type', default='wifi', help='Type of capture [wifi, http, img]')
+		parser.add_option('-t', '--type', dest='type', default='http', help='Type of capture [wifi, http, img]')
 		opts, _ = parser.parse_args()
 		
 

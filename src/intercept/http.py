@@ -38,8 +38,9 @@ class HttpRequestIntercepted:
         publish.single(topic=MQTT_TOPIC_HTTP, payload=msg)
 
 class HttpScanner:
-    def __init__(self):
+    def __init__(self, wl=[80, 8080]):
         self.packets = []
+        self.whitelist = wl
  
     def process(self, pkt):
         if pkt.haslayer(http.HTTPRequest):

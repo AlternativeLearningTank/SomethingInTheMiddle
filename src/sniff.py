@@ -32,7 +32,7 @@ if __name__ == '__main__':
         PktProcessor=WifiProbeScanner()
         sniff(iface=opts.iface, prn=process_packet) #, filter='udp or tcp', prn=process_packet)
     elif opts.type == 'http':
-        PktProcessor=HttpScanner()
+        PktProcessor=HttpScanner(SCAN_PORTS)
         sniff(iface=opts.iface, filter='udp or tcp', prn=process_packet)
     else:
         print("Capture type not supported at the moment '", opts.type, "'")
