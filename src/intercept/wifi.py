@@ -16,7 +16,7 @@ class WifiBeacon:
         self.mac    = None
 
     def __str__(self):
-        return "{0.rssi}    {0.ssid}    {0.mac}".format(self)
+        return "{0.ssid}  {0.bssid}  {0.mac}".format(self)
 
     def publish(self):
         msg = str(self)
