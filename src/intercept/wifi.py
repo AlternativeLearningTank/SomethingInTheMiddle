@@ -10,6 +10,7 @@ import paho.mqtt.publish as publish
 
 class WifiBeacon:
     def __init__(self):
+        self.tstamp = None
         self.ssid   = "unknown"
         self.bssid   = "--"
         self.channel   = None
@@ -27,11 +28,11 @@ class WifiBeacon:
     def parse(pkt):
         beacon = WifiBeacon()
 
+        beacon.tstamp     = datetime.datetime.now().isoformat()
         beacon.ssid       = pkt[Dot11Elt].info
         beacon.bssid      = pkt[Dot11].addr3
         beacon.mac        = pkt.addr2
         beacon.channel    = int( ord(pkt[Dot11Elt:3].info))
-
         return beacon
 
 
