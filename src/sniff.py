@@ -16,6 +16,7 @@ def process_packet(pkt):
     PktProcessor.process( pkt )
     if PktProcessor.last:
         PktProcessor.last.publish()
+        PktProcessor.last = None
 
 if __name__ == '__main__':
     # root guard
