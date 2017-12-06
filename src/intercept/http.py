@@ -9,8 +9,7 @@ from intercept import *
 import paho.mqtt.publish as publish
 
 class HttpRequestIntercepted:
-    def __init__(self, opts):
-        self.options = opts
+    def __init__(self):
         self.ipsrc = None
         self.ipdst = None
         self.host  = None
@@ -43,7 +42,8 @@ class HttpRequestIntercepted:
         publish.single(topic=MQTT_TOPIC_HTTP, payload=msg)
 
 class HttpScanner:
-    def __init__(self, wl=[80, 8080]):
+    def __init__(self, opts, wl=[80, 8080]):
+        self.options = opts
         self.packets = []
         self.last = None
         self.whitelist = wl
